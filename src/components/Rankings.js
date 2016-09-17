@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 
 const Rankings = ( { list = [] } ) => (
-	<div className="container rankings">
+	<div className="rankings">
 		<table className="table">
 			<thead>
 			  <tr>

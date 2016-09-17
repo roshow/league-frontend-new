@@ -10,12 +10,15 @@ export function getRankings (division, season) {
 		dispatch({
 			type: GET_RANKINGS_REQUEST
 		});
-
-		return fetch(`https://nycxwing-league-api.herokuapp.com/api/rankings/season/${season}/division/${division}`)
+		setTimeout( () => {
+			fetch(`https://nycxwing-league-api.herokuapp.com/api/rankings/season/${season}/division/${division}`)
 			.then( response => response.json() )
 			.then( rankings => dispatch({
 	  		type: GET_RANKINGS_RESPONSE,
-	  		rankings
+	  		ranking: {
+	  			[`${division}${season}`]: rankings
+	  		}
 	    }));
+	  }, 3000);
 	};
 }
