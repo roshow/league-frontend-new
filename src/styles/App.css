@@ -1,0 +1,39 @@
+.container {
+    max-width: 750px;
+    margin-bottom: 10px;
+}
+
+.banner h4 {
+  font-family: Impact, Charcoal, sans-serif;
+  margin: 0;
+  padding: 5px 10px;
+  background: #000;
+  text-transform: uppercase;
+  color: #FFF;
+}
+.banner h4 span {
+  color: #FF0000;
+}
+.banner img {
+  width: 100%;
+}
+
+.rankings th {
+  font-weight: bold;
+}
+  
+.matches-container {
+  width: 370px;
+}
+
+.nav-pills>li {
+  padding: 1px 0;
+}
+
+.nav-pills>li>a {
+  padding: 5px 10px;
+}
+
+.main-main {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
