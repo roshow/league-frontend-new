@@ -15,6 +15,10 @@ class RankingsPage extends Component {
     loadPageData(this.props);
   }
 
+  componentWillReceiveProps(nextProps) {
+    loadPageData(nextProps);
+  }
+
   render() {
     return (
       <div className="container rankingsPage">

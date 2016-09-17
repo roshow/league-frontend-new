@@ -7,7 +7,7 @@ export const GET_RANKINGS_ERROR = 'GET_RANKINGS_ERROR';
 export function getRankings (division, season) {
 
 	const rankingKey = `${division}${season}`;
-	
+
 	return ( dispatch, getState ) => {
 
 		if (getState().rankings[rankingKey]) {
@@ -18,15 +18,14 @@ export function getRankings (division, season) {
 			type: GET_RANKINGS_REQUEST
 		});
 
-		setTimeout( () => {
-			fetch(`https://nycxwing-league-api.herokuapp.com/api/rankings/season/${season}/division/${division}`)
-			.then( response => response.json() )
-			.then( rankings => dispatch({
-	  		type: GET_RANKINGS_RESPONSE,
-	  		ranking: {
-	  			[rankingKey]: rankings
-	  		}
-	    }));
-	  }, 3000);
+		fetch(`https://nycxwing-league-api.herokuapp.com/api/rankings/season/${season}/division/${division}`)
+		.then( response => response.json() )
+		.then( rankings => dispatch({
+  		type: GET_RANKINGS_RESPONSE,
+  		ranking: {
+  			[rankingKey]: rankings
+  		}
+    }));
+    
 	};
 }
