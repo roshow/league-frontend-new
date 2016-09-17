@@ -17,7 +17,7 @@ export function getRankings (division, season) {
 		dispatch({
 			type: GET_RANKINGS_REQUEST
 		});
-
+		setTimeout( () => {
 		fetch(`https://nycxwing-league-api.herokuapp.com/api/rankings/season/${season}/division/${division}`)
 		.then( response => response.json() )
 		.then( rankings => dispatch({
@@ -26,6 +26,7 @@ export function getRankings (division, season) {
   			[rankingKey]: rankings
   		}
     }));
+		},2500);
     
 	};
 }

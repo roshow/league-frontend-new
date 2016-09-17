@@ -38,17 +38,18 @@
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
-.spinner {
+
+.loadingDots {
   margin: 100px auto 0;
   width: 70px;
   text-align: center;
 }
 
-.spinner.hidden {
+.loadingDots.hidden {
   display: none;
 }
 
-.spinner > div {
+.loadingDots > div {
   width: 18px;
   height: 18px;
   background-color: #333;
@@ -59,12 +60,12 @@
   animation: sk-bouncedelay 1.4s infinite ease-in-out both;
 }
 
-.spinner .bounce1 {
+.loadingDots .bounce1 {
   -webkit-animation-delay: -0.32s;
   animation-delay: -0.32s;
 }
 
-.spinner .bounce2 {
+.loadingDots .bounce2 {
   -webkit-animation-delay: -0.16s;
   animation-delay: -0.16s;
 }
@@ -82,4 +83,52 @@
     -webkit-transform: scale(1.0);
     transform: scale(1.0);
   }
+}
+
+.forceLoading {
+  margin: 100px auto 0;
+  max-width: 600px;
+  /*text-align: center;*/
+}
+
+.forceLoading div {
+  display: inline-block;
+  position: relative;
+  animation: floatBubble 500ms infinite  normal linear;
+}
+
+@media (min-width: 600px) {
+  .forceLoading div {
+    animation: floatBubble 1000ms infinite  normal linear;
+  }
+}
+
+@keyframes floatBubble {
+    0% {
+      left:20px;
+    }
+    50% {
+      left: calc(100% - 220px);
+    }
+    100% {
+      left: 20px;
+    }
+}
+
+.forceLoading img {
+    /*width: 175px;*/
+
+    animation-name: spin;
+    animation-duration: 500ms;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+}
+
+@keyframes spin {
+    from {
+        transform:rotate(0deg);
+    }
+    to {
+        transform:rotate(360deg);
+    }
 }

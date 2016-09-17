@@ -23,7 +23,7 @@ class RankingsPage extends Component {
     return (
       <div className="container rankingsPage">
         <Rankings list={this.props.rankings}/>
-        { this.props.gettingRankings && <LoadingIndicator /> }
+        { this.props.gettingRankings && <LoadingIndicator useTheForce={ true }/> }
       </div>
     );
   }
