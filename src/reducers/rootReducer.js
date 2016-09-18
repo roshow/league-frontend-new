@@ -30,6 +30,7 @@ const playersList = ( state=[], { type, playersList } ) => {
 
 const rankings = ( state={}, { type, ranking } ) => {
 	switch (type) {
+    
 		case GET_RANKINGS_RESPONSE:
       return mergeState(state, ranking);
 
@@ -54,7 +55,7 @@ const loading = ( state={ status: false }, { type } ) => {
 
     default:
       return state;
-      
+
 	}
 };
 
