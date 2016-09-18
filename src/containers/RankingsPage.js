@@ -23,16 +23,16 @@ class RankingsPage extends Component {
     return (
       <div className="container rankingsPage">
         <Rankings list={this.props.rankings}/>
-        { this.props.gettingRankings && <LoadingIndicator useTheForce={ true }/> }
+        { this.props.isLoading && <LoadingIndicator useTheForce={ true }/> }
       </div>
     );
   }
 
 }
 
-const mapStateToProps = ( { rankings, gettingRankings }, { params: { division='argent', season='2' } } ) => ({
+const mapStateToProps = ( { rankings, loading }, { params: { division='argent', season='2' } } ) => ({
   rankings: rankings[`${division}${season}`],
-  gettingRankings,
+  isLoading: loading.status
 });
 
 export default connect(mapStateToProps, {

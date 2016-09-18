@@ -4,7 +4,7 @@ import image from './../images/anakin.png';
 const LoadingIndicator = ({ useTheForce=false }) => {
 	if (useTheForce) {
 		return (
-      <div className="forceLoading">
+      <div className="loadingIndicator forceLoading">
         <div>
           <img src={image} alt="Vader Spinning" />
         </div>
@@ -12,7 +12,7 @@ const LoadingIndicator = ({ useTheForce=false }) => {
 		);
 	}
 	return (
-		<div className="loadingDots">
+		<div className="loadingIndicator loadingDots">
 		  <div className="bounce1"></div>
 		  <div className="bounce2"></div>
 		  <div className="bounce3"></div>
