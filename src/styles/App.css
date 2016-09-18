@@ -22,8 +22,8 @@
   font-weight: bold;
 }
   
-.matches-container {
-  width: 370px;
+.container.small, .matches-container {
+  width: 340px;
 }
 
 .nav-pills>li {

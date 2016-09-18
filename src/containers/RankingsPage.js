@@ -16,7 +16,9 @@ class RankingsPage extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    loadPageData(nextProps);
+    if (nextProps.params.season !== this.props.params.season || nextProps.params.division !== this.props.params.division) {
+      loadPageData(nextProps);
+    }
   }
 
   render() {

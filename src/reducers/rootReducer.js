@@ -1,51 +1,66 @@
 import { combineReducers } from 'redux';
 import { routerReducer as routing } from 'react-router-redux';
-import { GET_RANKINGS_REQUEST, GET_RANKINGS_RESPONSE, GET_PLAYERS_REQUEST, GET_PLAYERS_RESPONSE } from './../actions/Actions';
+import { GET_RANKINGS_REQUEST, GET_RANKINGS_RESPONSE, GET_ALL_PLAYERS_REQUEST, GET_ALL_PLAYERS_RESPONSE } from './../actions/Actions';
 
-const players = ( state={}, { type, players }) => {
+const mergeState = ( state, newProps ) => ({
+  ...state,
+  ...newProps
+});
+
+const players = ( state={}, { type, players } ) => {
   switch (type) {
-    case GET_PLAYERS_RESPONSE:
-      return {
-        ...state,
-        ...players,
-      };
+    case GET_ALL_PLAYERS_RESPONSE:
+      return mergeState(state, players);
 
     default:
       return state;
   }
 };
 
-const rankings = ( state={}, { type, ranking }={} ) => {
+const playersList = ( state=[], { type, playersList } ) => {
+
+  switch (type) {
+    case GET_ALL_PLAYERS_RESPONSE:
+      return [...playersList];
+
+    default:
+      return state;
+  }
+};
+
+const rankings = ( state={}, { type, ranking } ) => {
 	switch (type) {
 		case GET_RANKINGS_RESPONSE:
-			return {
-				...state,
-				...ranking,
-			};
+      return mergeState(state, ranking);
 
 		default:
 			return state;
 	}
 };
 
-const loading = ( state={ status: false }, { type }={} ) => {
+const loading = ( state={ status: false }, { type } ) => {
 	switch (type) {
-		case GET_RANKINGS_REQUEST:
+    case GET_ALL_PLAYERS_REQUEST:
+    case GET_RANKINGS_REQUEST:
       return {
         status: true,
         type
       };
 
 		case GET_RANKINGS_RESPONSE:
-		default:
 			return {
         status: false
       };
+
+    default:
+      return state;
+      
 	}
 };
 
 const rootReducer = combineReducers({
   players,
+  playersList,
   rankings,
   loading,
   routing,
