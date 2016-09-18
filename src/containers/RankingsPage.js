@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Rankings from './../components/Rankings';
 import LoadingIndicator from './../components/LoadingIndicator';
-import { getRankings } from './../actions/Actions';
+import { getRankings, GET_RANKINGS_REQUEST } from './../actions/Actions';
 
 const loadPageData  = ( { getRankings, params: { division='argent', season='2' } } ) => {
   getRankings(division, season);
@@ -32,11 +32,13 @@ class RankingsPage extends Component {
 
 }
 
-const mapStateToProps = ( { rankings, loading }, { params: { division='argent', season='2' } } ) => ({
-  rankings: rankings[`${division}${season}`],
-  isLoading: loading.status
+const mapStateToProps = ( state, { params: { division='argent', season='2' } } ) => ({
+  rankings: state.entities.rankings[`${division}${season}`],
+  isLoading: state.loading[GET_RANKINGS_REQUEST]
 });
 
-export default connect(mapStateToProps, {
+const mapDispatchToProps = {
   getRankings
-})(RankingsPage);
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(RankingsPage);

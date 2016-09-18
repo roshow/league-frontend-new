@@ -5,14 +5,6 @@ import Nav from './../components/Nav';
 import { getAllPlayers } from './../actions/Actions';
 
 
-// const OldApp = ({ children }) => (
-//   <div className="App">
-//     <Banner />
-//     <Nav />
-//     { children }
-//   </div>
-// );
-
 class App extends Component {
 
   componentWillMount () {
@@ -31,10 +23,11 @@ class App extends Component {
 
 }
 
-// const mapStateToProps = state => ({});
 
-
-export default connect(null, {
+const mapDispatchToProps = {
   getAllPlayers
-})(App);
+};
+
+
+export default connect(null, mapDispatchToProps)(App);
 

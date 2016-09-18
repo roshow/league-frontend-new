@@ -14,29 +14,29 @@ export const GET_RANKINGS_RESPONSE = 'GET_RANKINGS_RESPONSE';
 export const GET_RANKINGS_ERROR = 'GET_RANKINGS_ERROR';
 
 
-const dispatchType = type => ({ type });
+const makeDispatchObject = (type, payload = {}) => ({ type, payload });
+
+const dispatchRankings = ({ division, season, rankings }) => makeDispatchObject(GET_RANKINGS_RESPONSE, {
+	entities: {
+		rankings: {
+			[`${division}${season}`]: rankings
+		}
+	}
+});
 
 export function getRankings (division, season) {
-
 	const key = `${division}${season}`;
-
 	return ( dispatch, getState ) => {
-
-		if (getState().rankings[key]) {
+		if (getState().entities.rankings[key]) {
 			return;
 		}
-		
-		dispatch(dispatchType(GET_RANKINGS_REQUEST));
+
+		dispatch(makeDispatchObject(GET_RANKINGS_REQUEST));
 
 		setTimeout( () => {
 		
-		
-		fetchApi(`rankings/${division}/${season}`).then( ({ division, season, rankings }) => dispatch({
-  		type: GET_RANKINGS_RESPONSE,
-  		ranking: {
-  			[`${division}${season}`]: rankings
-  		}
-    }));
+		fetchApi(`rankings/${division}/${season}`)
+			.then( (response) => dispatch(dispatchRankings(response)));
 		
 		},1000);
     
@@ -50,19 +50,19 @@ function dispatchAllPlayers (playersArr) {
 		return obj;
 	}, {});
 
-	const playersList = Object.keys(players).sort();
 
-	return {
-		type: GET_ALL_PLAYERS_RESPONSE,
-		players,
-		playersList
-	};
+	return makeDispatchObject(GET_ALL_PLAYERS_RESPONSE, {
+		playersList: Object.keys(players).sort(),
+		entities: {
+			players
+		}
+	});
 
 }
 
 export function getAllPlayers () {
 	return dispatch => {
-		dispatch(dispatchType(GET_ALL_PLAYERS_REQUEST));
+		dispatch(makeDispatchObject(GET_ALL_PLAYERS_REQUEST));
 		fetchApi('players').then( playersArr => dispatch(dispatchAllPlayers(playersArr)) );
 	};
 }
