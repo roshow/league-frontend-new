@@ -33,11 +33,10 @@ export function getRankings (division, season) {
 
 		dispatch(makeDispatchObject(GET_RANKINGS_REQUEST));
 
+		// TODO: Remove this setTImeout after you have tests or know you're not breaking the loading indicator
 		setTimeout( () => {
-		
-		fetchApi(`rankings/${division}/${season}`)
-			.then( (response) => dispatch(dispatchRankings(response)));
-		
+			fetchApi(`rankings/${division}/${season}`)
+				.then( (response) => dispatch(dispatchRankings(response)));
 		},1000);
     
 	};
@@ -50,14 +49,12 @@ function dispatchAllPlayers (playersArr) {
 		return obj;
 	}, {});
 
-
 	return makeDispatchObject(GET_ALL_PLAYERS_RESPONSE, {
 		playersList: Object.keys(players).sort(),
 		entities: {
 			players
 		}
 	});
-
 }
 
 export function getAllPlayers () {
