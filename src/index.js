@@ -6,7 +6,6 @@ import createLogger from 'redux-logger';
 import { Provider } from 'react-redux';
 import { Router, browserHistory } from 'react-router';
 import { syncHistoryWithStore } from 'react-router-redux';
-import DevTools from './containers/DevTools';
 import routes from './routes';
 import rootReducer from './reducers/rootReducer';
 
@@ -18,7 +17,7 @@ const store = createStore(
   rootReducer,
   compose(
     applyMiddleware(thunk, createLogger()),
-    DevTools.instrument()
+    window.devToolsExtension ? window.devToolsExtension() : f => f
   )
 );
 const history = syncHistoryWithStore(browserHistory, store);
@@ -27,7 +26,6 @@ ReactDOM.render(
   <Provider store={store}>
     <div>
       <Router history={history} routes={routes} onUpdate={() => window.scrollTo(0, 0)} />
-      <DevTools />
     </div>
   </Provider>,
   document.getElementById('root')
