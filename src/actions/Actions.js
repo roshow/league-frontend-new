@@ -17,49 +17,55 @@ export const GET_RANKINGS_ERROR = 'GET_RANKINGS_ERROR';
 const makeDispatchObject = (type, payload = {}) => ({ type, payload });
 
 const dispatchRankings = ({ division, season, rankings }) => makeDispatchObject(GET_RANKINGS_RESPONSE, {
-	entities: {
-		rankings: {
-			[`${division}${season}`]: rankings
-		}
-	}
+  entities: {
+    rankings: {
+      [`${division}${season}`]: rankings
+    }
+  }
 });
 
 export function getRankings (division, season) {
-	const key = `${division}${season}`;
-	return ( dispatch, getState ) => {
-		if (getState().entities.rankings[key]) {
-			return;
-		}
+  const key = `${division}${season}`;
+  return ( dispatch, getState ) => {
+    if (getState().entities.rankings[key]) {
+      return;
+    }
 
-		dispatch(makeDispatchObject(GET_RANKINGS_REQUEST));
+    dispatch(makeDispatchObject(GET_RANKINGS_REQUEST));
 
-		// TODO: Remove this setTImeout after you have tests or know you're not breaking the loading indicator
-		setTimeout( () => {
-			fetchApi(`rankings/${division}/${season}`)
-				.then( (response) => dispatch(dispatchRankings(response)));
-		},1000);
+    // TODO: Remove this setTImeout after you have tests or know you're not breaking the loading indicator
+    setTimeout( () => {
+      fetchApi(`rankings/${division}/${season}`)
+        .then( (response) => dispatch(dispatchRankings(response)));
+    },1000);
     
-	};
+  };
 }
 
 function dispatchAllPlayers (playersArr) {
 
-	const players = playersArr.reduce( ( obj, player ) => {	  		
-		obj[player.name] = player;
-		return obj;
-	}, {});
+  const { players, playerNames } = playersArr.reduce( ( obj, player ) => {
+    const { name, print_name } = player;       
+    obj.players[name] = player;
+    obj.playerNames[name] = print_name;
+    return obj;
+  }, { players: {}, playerNames: {}});
 
-	return makeDispatchObject(GET_ALL_PLAYERS_RESPONSE, {
-		playersList: Object.keys(players).sort(),
-		entities: {
-			players
-		}
-	});
+  const playersList = playersArr.map( ({ name }) => name ).sort();
+
+
+  return makeDispatchObject(GET_ALL_PLAYERS_RESPONSE, {
+    playersList,
+    playerNames,
+    entities: {
+      players
+    }
+  });
 }
 
 export function getAllPlayers () {
-	return dispatch => {
-		dispatch(makeDispatchObject(GET_ALL_PLAYERS_REQUEST));
-		fetchApi('players').then( playersArr => dispatch(dispatchAllPlayers(playersArr)) );
-	};
+  return dispatch => {
+    dispatch(makeDispatchObject(GET_ALL_PLAYERS_REQUEST));
+    fetchApi('players').then( playersArr => dispatch(dispatchAllPlayers(playersArr)) );
+  };
 }

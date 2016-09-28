@@ -16,6 +16,21 @@ function playersList ( state = [], { type, payload = {} } ) {
 
 }
 
+function playerNames ( state = {}, { type, payload = {} } ) {
+
+  switch (type) {
+    case GET_ALL_PLAYERS_RESPONSE:
+      return {
+        ...state,
+        ...payload.playerNames
+      };
+
+    default:
+      return state;
+  }
+}
+
+
 const loading = ( state = {}, { type } ) => {
 	switch (type) {
     case GET_ALL_PLAYERS_REQUEST:
@@ -54,6 +69,7 @@ function entities ( state = entitiesInitialState, { payload = {} } ) {
 const rootReducer = combineReducers({
   entities,
   playersList,
+  playerNames,
   loading,
   routing,
 });

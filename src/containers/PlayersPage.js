@@ -1,8 +1,8 @@
 import { connect } from 'react-redux';
 import Players from './../components/Players';
 
-const mapStateToProps = ( { entities: { players }, playersList } ) => ({
-  players,
+const mapStateToProps = ( { playerNames, playersList } ) => ({
+  playerNames,
   playersList
 });
 
