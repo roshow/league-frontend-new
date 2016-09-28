@@ -3,9 +3,6 @@ import { Link, browserHistory } from 'react-router';
 
 const handleClick = ({ target: { value }}) => browserHistory.push(value || '/players');
 
-
-console.log(browserHistory);
-
 const Nav = () => (
 	<div className="container">
     <nav>
