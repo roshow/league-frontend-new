@@ -8,17 +8,17 @@ const Rankings = ( { list = [] } ) => (
 			    <th>Player Name</th>
 			    <th>Points</th>
 			    <th>MOV</th>
-			    <th>Games Played</th>
+			    <th>Record</th>
 			  </tr>
 			</thead>
 			<tbody>
 				{
-					list.map( player => (
-					  <tr key={ player.name }>
-					    <td>{ player.name }</td>
-					    <td>{ player.lp }</td>
-					    <td>{ player.mov }</td>
-					    <td>{ player.games_played }</td>
+					list.map( ({ name, lp, mov, wins, modWins, losses, modLosses, draws }) => (
+					  <tr key={ name }>
+					    <td>{ name }</td>
+					    <td>{ lp }</td>
+					    <td>{ mov }</td>
+					    <td>{ wins } ({ modWins }) - { losses } ({ modLosses }) - { draws }</td>
 					  </tr>
 					))
 				}
