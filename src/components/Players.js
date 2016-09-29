@@ -1,11 +1,11 @@
 import React, { PropTypes } from 'react';
 import { Link } from 'react-router';
 
-const Players = ( { playerNames, playersList } ) => (
+const Players = ( { playerNames, playerList } ) => (
   <div className="container small playersList">
     <ul className="list-group" style={{textAlign:`center`}}>
       {
-        playersList.map( player => (
+        playerList.map( player => (
           <li className="list-group-item" key={ player } ><Link to={ `/players/${ player }` }>{ playerNames[player] }</Link></li>
         ))
       }
@@ -15,7 +15,7 @@ const Players = ( { playerNames, playersList } ) => (
 
 Players.propTypes = {
   playerNames: PropTypes.object.isRequired,
-  playersList: PropTypes.array.isRequired
+  playerList: PropTypes.array.isRequired
 };
 
 export default Players;

@@ -1,9 +1,9 @@
 import { connect } from 'react-redux';
 import Players from './../components/Players';
 
-const mapStateToProps = ( { playerNames, playersList } ) => ({
-  playerNames,
-  playersList
+const mapStateToProps = state => ({
+  playerNames: state.entities.playerNames,
+  playerList: state.lists.playerList,
 });
 
 export default connect(mapStateToProps)(Players);

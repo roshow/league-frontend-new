@@ -33,11 +33,8 @@ export function getRankings (division, season) {
 
     dispatch(makeDispatchObject(GET_RANKINGS_REQUEST));
 
-    // TODO: Remove this setTImeout after you have tests or know you're not breaking the loading indicator
-    setTimeout( () => {
-      fetchApi(`rankings/${division}/${season}`)
-        .then( (response) => dispatch(dispatchRankings(response)));
-    },1000);
+    fetchApi(`rankings/${division}/${season}`)
+      .then( (response) => dispatch(dispatchRankings(response)));
     
   };
 }
@@ -51,14 +48,16 @@ function dispatchAllPlayers (playersArr) {
     return obj;
   }, { players: {}, playerNames: {}});
 
-  const playersList = playersArr.map( ({ name }) => name ).sort();
+  const playerList = playersArr.map( ({ name }) => name ).sort();
 
 
   return makeDispatchObject(GET_ALL_PLAYERS_RESPONSE, {
-    playersList,
-    playerNames,
+    lists: {
+      playerList
+    },
     entities: {
-      players
+      players,
+      playerNames
     }
   });
 }
@@ -67,5 +66,37 @@ export function getAllPlayers () {
   return dispatch => {
     dispatch(makeDispatchObject(GET_ALL_PLAYERS_REQUEST));
     fetchApi('players').then( playersArr => dispatch(dispatchAllPlayers(playersArr)) );
+  };
+}
+
+
+export const GET_MATCHES_REQUEST = `GET_MATCHES_REQUEST`;
+export const GET_MATCHES_RESPONSE = `GET_MATCHES_RESPONSE`;
+export const GET_MATCHES_ERROR = `GET_MATCHES_ERROR`;
+
+function dispatchMatches (matchesArr) {
+
+  const matches = matchesArr.reduce( (obj, match) => ({
+      ...obj,
+      [match.match_id]: match
+    }), {} );
+
+  const matchList = matchesArr.map( ({ match_id }) => match_id );
+
+
+  return makeDispatchObject(GET_MATCHES_RESPONSE, {
+    lists: {
+      matchList
+    },
+    entities: {
+      matches
+    }
+  });
+}
+
+export function getMatches () {
+  return dispatch => {
+    dispatch(makeDispatchObject(GET_MATCHES_REQUEST));
+    fetchApi('matches/ultima/2/1').then( ({ matches }) => dispatch(dispatchMatches(matches)) );
   };
 }

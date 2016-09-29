@@ -4,34 +4,7 @@ import { routerReducer as routing } from 'react-router-redux';
 import { GET_RANKINGS_REQUEST, GET_RANKINGS_RESPONSE, GET_ALL_PLAYERS_REQUEST, GET_ALL_PLAYERS_RESPONSE } from './../actions/Actions';
 
 
-function playersList ( state = [], { type, payload = {} } ) {
-
-  switch (type) {
-    case GET_ALL_PLAYERS_RESPONSE:
-      return [...payload.playersList];
-
-    default:
-      return state;
-  }
-
-}
-
-function playerNames ( state = {}, { type, payload = {} } ) {
-
-  switch (type) {
-    case GET_ALL_PLAYERS_RESPONSE:
-      return {
-        ...state,
-        ...payload.playerNames
-      };
-
-    default:
-      return state;
-  }
-}
-
-
-const loading = ( state = {}, { type } ) => {
+const loading = (state={}, { type }) => {
 	switch (type) {
     case GET_ALL_PLAYERS_REQUEST:
     case GET_RANKINGS_REQUEST:
@@ -53,23 +26,27 @@ const loading = ( state = {}, { type } ) => {
 };
 
 const entitiesInitialState = {
+  matches: {},
+  playerNames: {},
   players: {},
-  rankings: {},
-  matches: {}
+  rankings: {}
 };
 
-function entities ( state = entitiesInitialState, { payload = {} } ) {
-  if (payload.entities) {
-    return merge({}, state, payload.entities);
-  }
-  return state;
-}
+const entities = (state=entitiesInitialState, { payload={} }) => payload.entities ? merge({}, state, payload.entities) : state;
+
+const listsInitialState = {
+  playerList: [],
+  matchList: []
+};
+
+const lists = (state=listsInitialState, { payload={} }) => payload.lists ? merge({}, state, payload.lists) : state;
+
+
 
 
 const rootReducer = combineReducers({
   entities,
-  playersList,
-  playerNames,
+  lists,
   loading,
   routing,
 });
