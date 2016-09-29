@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
 import merge from 'lodash/merge';
 import { routerReducer as routing } from 'react-router-redux';
-import { GET_RANKINGS_REQUEST, GET_RANKINGS_RESPONSE, GET_ALL_PLAYERS_REQUEST, GET_ALL_PLAYERS_RESPONSE } from './../actions/Actions';
+import { GET_RANKINGS_REQUEST, GET_RANKINGS_RESPONSE, GET_ALL_PLAYERS_REQUEST } from './../actions/Actions';
 
 
 const loading = (state={}, { type }) => {

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Matches from './../components/Matches';
 // import LoadingIndicator from './../components/LoadingIndicator';
-import { getMatches, GET_MATCHES_REQUEST } from './../actions/Actions';
+import { getMatches } from './../actions/Actions';
 
 const loadPageData  = ( { getMatches, params: { division='argent', season='2', week='1' } } ) => {
   getMatches(division, season, week);
