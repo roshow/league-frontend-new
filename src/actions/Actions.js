@@ -94,9 +94,10 @@ function dispatchMatches (matchesArr) {
   });
 }
 
-export function getMatches () {
+export function getMatches (division, season, week) {
+  // const key = `${division}${season}`;
   return dispatch => {
     dispatch(makeDispatchObject(GET_MATCHES_REQUEST));
-    fetchApi('matches/ultima/2/1').then( ({ matches }) => dispatch(dispatchMatches(matches)) );
+    fetchApi(`matches/${division}/${season}/${week}`).then( ({ matches }) => dispatch(dispatchMatches(matches)) );
   };
 }
